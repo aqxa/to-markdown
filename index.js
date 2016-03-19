@@ -13,6 +13,7 @@ var converters
 var mdConverters = require('./lib/md-converters')
 var gfmConverters = require('./lib/gfm-converters')
 var HtmlParser = require('./lib/html-parser')
+var preprocess = require('./lib/preprocess')
 var collapse = require('collapse-whitespace')
 
 /*
@@ -43,6 +44,7 @@ function isVoid (node) {
 function htmlToDom (string) {
   var tree = new HtmlParser().parseFromString(string, 'text/html')
   collapse(tree.documentElement, isBlock)
+  preprocess(tree.documentElement)
   return tree
 }
 
